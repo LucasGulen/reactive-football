@@ -1,3 +1,13 @@
+.App-button {
+  padding:6px 0 6px 0;
+	font:bold 13px Arial;
+	background:#478bf9;
+	color:#fff;
+  width:100px;
+  border-Radius:2px;
+	border:none;
+}
+
 .App {
   text-align: center;
 }
