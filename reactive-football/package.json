@@ -1,11 +1,6 @@
 {
-  "name": "@coreui/react",
-  "version": "1.0.5",
-  "description": "Open Source Bootstrap Admin Template",
-  "author": "Łukasz Holeczek",
-  "homepage": "http://coreui.io",
-  "copyright": "Copyright 2017 creativeLabs Łukasz Holeczek",
-  "license": "MIT",
+  "name": "reactive-football",
+  "version": "0.0.1",
   "private": true,
   "devDependencies": {
     "babel-core": "^6.26.0",
