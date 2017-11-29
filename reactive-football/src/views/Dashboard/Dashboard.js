@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Tables from '../../components/Tables/Tables.js';
+import TableJoueurs from '../../components/Tables/TableJoueurs.js';
 
 class Dashboard extends Component {
 
   render() {
     return (
       <div className="animated fadeIn">
-       <Tables/>
+       <TableJoueurs/>
       </div>
     )
   }

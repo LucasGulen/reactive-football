@@ -13,18 +13,25 @@ import {
 } from 'reactstrap';
 
 
-class Tables extends Component {
+const joueurs=[
+  { Photo: '',Nom: 'Ronaldo',Age:'19 ans',Equipe:'Pourtogal',Classement:'4/5'},
+  { Photo: '',Nom: 'Ronaldo',Age:'19 ans',Equipe:'Pourtogal',Classement:'4/5'},
+  { Photo: '',Nom: 'Ronaldo',Age:'19 ans',Equipe:'Pourtogal',Classement:'4/5'}
+];
+
+class TableJoueurs extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <Row>
+          <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by names" title="Type in a name"/>        
+          <Row>
           <Col xs="12" lg="6">
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify"></i> Striped Table
               </CardHeader>
               <CardBody>
-                <Table responsive striped>
+                <Table responsive striped >
                   <thead>
                   <tr>
                     <th>Photo</th>
@@ -35,42 +42,17 @@ class Tables extends Component {
                   </tr>
                   </thead>
                   <tbody>
+                  {joueurs.map( (row) => (
                   <tr>
-                    <td><img src="" /></td>
-                    <td>Ronaldo Mcdonald's</td>
-                    <td>19 ans</td>
-                    <td>Serviette</td>
+                    <td>{row.Photo}</td>
+                    <td >{row.Nom}</td>
+                    <td>{row.Age}</td>
+                    <td>{row.Equipe}</td>
                     <td>
-                      <Badge color="success">4/5</Badge>
+                      <Badge color="success">{row.Classement}</Badge>
                     </td>
                   </tr>
-                  <tr>
-                    <td><img src="" /></td>
-                    <td>Peter Des Nez</td>
-                    <td>43 ans</td>
-                    <td>GameMaster</td>
-                    <td>
-                      <Badge color="success">5/5</Badge>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><img src="" /></td>
-                    <td>Michel Qu'une</td>
-                    <td>22 ans</td>
-                    <td>Réel Madrid</td>
-                    <td>
-                      <Badge color="success">6/5</Badge>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><img src="" /></td>
-                    <td>Gérard Heineken</td>
-                    <td>54 ans</td>
-                    <td>Arsenal</td>
-                    <td>
-                      <Badge color="success">6/5</Badge>
-                    </td>
-                  </tr>
+                    ))}
                   </tbody>
                 </Table>
                 <Pagination>
@@ -92,4 +74,4 @@ class Tables extends Component {
   }
 }
 
-export default Tables;
+export default TableJoueurs;
