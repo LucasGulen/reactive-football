@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Card, CardHeader, CardBody, Button} from 'reactstrap';
 import axios from 'axios';
 
 class CreationEquipe extends Component {
@@ -9,7 +10,19 @@ class CreationEquipe extends Component {
         <button onClick={this.testAjax}>
           Faire un log
         </button>
-        Ceci est la view de la CreationEquipe
+        <Card>
+          <CardHeader>
+            Positions  
+          </CardHeader>
+          <CardBody>
+            <div>Attaquant</div>
+            <Button outline color="primary">Cristiano Ronaldo</Button>{' '}
+            <div>Défenseur</div>
+            <Button outline color="success">Luisão</Button>{' '}
+            <div>Gardien</div>
+            <Button outline color="warning">Iker Casillas</Button>{' '}
+          </CardBody>
+        </Card>
       </div>
     )
   }
@@ -17,7 +30,7 @@ class CreationEquipe extends Component {
   testAjax() {
     axios.get("http://localhost/players.php")
     .then(function (response) {
-      console.log(response);
+      console.log(response.data);
     });
   }
 }
