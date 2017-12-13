@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
-import {Card, CardHeader, CardBody, Button} from 'reactstrap';
 import axios from 'axios';
+import {
+  Badge,
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  Table,
+  Pagination,
+  PaginationItem,
+  PaginationLink} from 'reactstrap';
 
 class CreationEquipe extends Component {
 
+  constructor(props) {
+    super(props);
+  }
+  
   render() {
     return (
       <div className="animated fadeIn">
-        <button onClick={this.testAjax}>
-          Faire un log
-        </button>
         <Card>
           <CardHeader>
             Positions  
@@ -23,6 +33,47 @@ class CreationEquipe extends Component {
             <Button outline color="warning">Iker Casillas</Button>{' '}
           </CardBody>
         </Card>
+
+        <Card>
+              <CardHeader>
+                <i className="fa fa-align-justify"></i> Striped Table
+              </CardHeader>
+              <CardBody>
+                <Table responsive striped>
+                  <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Nationalité</th>
+                    <th>Club</th>
+                    <th>Pays club</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+
+
+                  <tr>
+                    <td>Yiorgos Avraamu</td>
+                    <td>2012/01/01</td>
+                    <td>Member</td>
+                    <td>
+                      <Badge color="success">Active</Badge>
+                    </td>
+                  </tr>
+                  
+                  </tbody>
+                </Table>
+                <Pagination>
+                  <PaginationItem disabled><PaginationLink previous href="#">Prev</PaginationLink></PaginationItem>
+                  <PaginationItem active>
+                    <PaginationLink href="#">1</PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem><PaginationLink href="#">2</PaginationLink></PaginationItem>
+                  <PaginationItem><PaginationLink href="#">3</PaginationLink></PaginationItem>
+                  <PaginationItem><PaginationLink href="#">4</PaginationLink></PaginationItem>
+                  <PaginationItem><PaginationLink next href="#">Next</PaginationLink></PaginationItem>
+                </Pagination>
+              </CardBody>
+            </Card>
       </div>
     )
   }

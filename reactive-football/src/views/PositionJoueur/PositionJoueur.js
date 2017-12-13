@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Position extends Component {
+class PositionJoueur extends Component {
 
   render() {
     return (
@@ -11,4 +11,4 @@ class Position extends Component {
   }
 }
 
-export default Position;
+export default PositionJoueur;
