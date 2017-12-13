@@ -11,19 +11,45 @@ import {
   PaginationItem,
   PaginationLink
 } from 'reactstrap';
-
-
-const joueurs=[
-  { Photo: '',Nom: 'Ronaldo',Age:'19 ans',Equipe:'Pourtogal',Classement:'4/5'},
-  { Photo: '',Nom: 'Ronaldo',Age:'19 ans',Equipe:'Pourtogal',Classement:'4/5'},
-  { Photo: '',Nom: 'Ronaldo',Age:'19 ans',Equipe:'Pourtogal',Classement:'4/5'}
-];
+import axios from 'axios';
 
 class TableJoueurs extends Component {
+
+  constructor(props) {
+      super(props);
+      this.state = {
+        joueurs: []
+      };  
+      this.getAllJoueurs()
+
+  }
+
+
+  
+//  constructor(props) {
+//     super(props);
+//     axios.get("http://localhost/players.php")
+//     .then((response) => {
+//       joueurs = response.data;
+//       _this.setState({  joueurs : response.data
+//       });                     
+//     });
+//     this.state = {joueurs};  
+//     console.log(joueurs)  
+//   }
+
+getAllJoueurs() {
+  axios.get(`http://localhost/players.php`)
+  .then(res => {
+    const joueurs = res.data;
+    this.setState({ joueurs });
+  });
+}
+
   render() {
     return (
       <div className="animated fadeIn">
-          <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by names" title="Type in a name"/>        
+          <button onClick={this.testAjax} />
           <Row>
           <Col xs="12" lg="6">
             <Card>
@@ -31,23 +57,22 @@ class TableJoueurs extends Component {
                 <i className="fa fa-align-justify"></i> Striped Table
               </CardHeader>
               <CardBody>
-                <Table responsive striped >
+                <Table responsive striped>
                   <thead>
                   <tr>
-                    <th>Photo</th>
-                    <th>Nom du Joueur</th>
-                    <th>Age</th>
-                    <th>Equipe</th>
-                    <th>Classement</th>
+                    <th>Nom du joueur</th>
+                    <th>Nationalité</th>
+                    <th>Club</th>
+                    <th>Pays du club</th>
                   </tr>
                   </thead>
-                  <tbody>
-                  {joueurs.map( (row) => (
-                  <tr>
-                    <td>{row.Photo}</td>
-                    <td >{row.Nom}</td>
-                    <td>{row.Age}</td>
-                    <td>{row.Equipe}</td>
+                  <tbody >
+                  {this.state.joueurs.map( (row) => (
+                  <tr key={row.id}>
+                    <td>{row.nom}</td>
+                    <td >{row.nationalite}</td>
+                    <td>{row.club}</td>
+                    <td>{row.pays_club}</td>
                     <td>
                       <Badge color="success">{row.Classement}</Badge>
                     </td>
