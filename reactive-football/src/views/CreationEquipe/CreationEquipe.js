@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import TableJoueurs from './../../components/Tables/TableJoueurs'
-import {getAllJoueurs} from './../../functions/Joueur';
+import {getJoueursFilter} from './../../functions/Joueur';
 import {
   Badge,
   Button,
@@ -33,7 +33,7 @@ class CreationEquipe extends Component {
   }
 
   executer() {
-    getAllJoueurs()
+    getJoueursFilter("Ronal")
     .then((res) => {
         this.tableJoueurs.populateTable(res.data);
       }
