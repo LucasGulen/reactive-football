@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+
 import {
   Badge,
   Row,
@@ -20,41 +21,28 @@ class TableJoueurs extends Component {
       this.state = {
         joueurs: []
       };  
-      this.getAllJoueurs()
-
   }
 
+  componentDidMount() {
+    this.props.onRef(this)
+  }
 
-  
-//  constructor(props) {
-//     super(props);
-//     axios.get("http://localhost/players.php")
-//     .then((response) => {
-//       joueurs = response.data;
-//       _this.setState({  joueurs : response.data
-//       });                     
-//     });
-//     this.state = {joueurs};  
-//     console.log(joueurs)  
-//   }
+  componentWillUnmount() {
+    this.props.onRef(undefined)
+  }
 
-getAllJoueurs() {
-  axios.get(`http://localhost/players.php`)
-  .then(res => {
-    const joueurs = res.data;
+  populateTable(joueurs) {
     this.setState({ joueurs });
-  });
-}
+  }
 
   render() {
     return (
       <div className="animated fadeIn">
-          <button onClick={this.testAjax} />
           <Row>
-          <Col xs="12" lg="6">
+          <Col xs="12" lg="12">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> Striped Table
+                <i className="fa fa-align-justify"></i> Joueurs
               </CardHeader>
               <CardBody>
                 <Table responsive striped>
@@ -67,7 +55,7 @@ getAllJoueurs() {
                   </tr>
                   </thead>
                   <tbody >
-                  {this.state.joueurs.map( (row) => (
+                  {this.state.joueurs.map((row) => (
                   <tr key={row.id}>
                     <td>{row.nom}</td>
                     <td >{row.nationalite}</td>
