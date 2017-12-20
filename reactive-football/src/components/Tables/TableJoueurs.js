@@ -11,8 +11,7 @@ import {
   PaginationItem,
   PaginationLink
 } from 'reactstrap';
-import axios from 'axios';
-
+import axios from 'axios';  
 
 
 class TableJoueurs extends Component {
@@ -23,7 +22,8 @@ class TableJoueurs extends Component {
         joueurs: [],
         tenDisplayPlayers:[],
         nextPlayerInd:0,
-        nbPlayerToDisplay:10
+        nbPlayerToDisplay:10,
+        nbPages : 0
       };  
       this.getAllJoueurs()
   }
@@ -34,7 +34,8 @@ getAllJoueurs() {
   .then(res => {
     const joueurs = res.data;
     this.setState({ joueurs:joueurs});
-    this.getTenPlayers(0,10)    
+    this.getTenPlayers(0,10);
+    this.setState({nbPages:this.state.joueurs.length/this.state.nbPlayerToDisplay});
   });
 }
 
@@ -91,17 +92,8 @@ getTenPlayers(startInd,endInd){
                     ))}
                   </tbody>
                 </Table>
-                {/* Pagination opérationnelle mais il faut encore généraliser ça pour que les numéros de pages soient crées selon les données, 
-                    Pour l'instant un clic sur un numéro renvoi les 10 suivants.
-                */}
-                <Pagination size={"10"}>
+                <Pagination size={"30"} >
                   <PaginationItem onClick={()=>this.getTenPlayers(this.state.nextPlayerInd-2*this.state.nbPlayerToDisplay,this.state.nextPlayerInd-this.state.nbPlayerToDisplay)}><PaginationLink previous >Prev</PaginationLink></PaginationItem>
-                  <PaginationItem active>
-                    <PaginationLink href="#">1</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem ><PaginationLink onClick={()=>this.getTenPlayers(this.state.nextPlayerInd,this.state.nextPlayerInd+this.state.nbPlayerToDisplay)} >2</PaginationLink></PaginationItem>
-                  <PaginationItem><PaginationLink onClick={()=>this.getTenPlayers(this.state.nextPlayerInd,this.state.nextPlayerInd+this.state.nbPlayerToDisplay)} >3</PaginationLink></PaginationItem>
-                  <PaginationItem><PaginationLink onClick={()=>this.getTenPlayers(this.state.nextPlayerInd,this.state.nextPlayerInd+this.state.nbPlayerToDisplay)} >4</PaginationLink></PaginationItem>
                   <PaginationItem><PaginationLink onClick={()=>this.getTenPlayers(this.state.nextPlayerInd,this.state.nextPlayerInd+this.state.nbPlayerToDisplay)} next >Next</PaginationLink></PaginationItem>
                 </Pagination>
               </CardBody>
