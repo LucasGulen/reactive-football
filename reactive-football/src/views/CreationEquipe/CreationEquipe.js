@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
+import { Button, Col, Container, Row, Card, CardHeader, CardBody, Table } from 'reactstrap';
 import axios from 'axios';
+
 import TableJoueurs from './../../components/Tables/TableJoueurs'
 import { getJoueursFilter } from './../../functions/Joueur';
-import {
-  Badge,
-  Button,
-  Col,
-  Container,
-  Row,
-  Card,
-  CardHeader,
-  CardBody,
-  Table,
-  Pagination,
-  PaginationItem,
-  PaginationLink
-} from 'reactstrap';
+
+const NO_PLAYER = "Aucun joueur selectionné";
 
 class CreationEquipe extends Component {
 
@@ -38,6 +28,14 @@ class CreationEquipe extends Component {
     this.setState({ recherche: event.target.value });
   }
 
+  update() {
+    getJoueursFilter(this.state.recherche)
+      .then((res) => {
+        this.tableJoueurs.populateTable(res.data === "" ? [] : res.data);
+      }
+      );
+  }
+
   render() {
     return (
       <Container>
@@ -48,13 +46,22 @@ class CreationEquipe extends Component {
                 <i className="fa fa-align-justify"></i> Recherche </CardHeader>
               <CardBody>
                 <Row>
-                  <input type="text" onChange={this.handleChange} onKeyPress={(e) => { if (e.key === "Enter") this.update() }} />
-                  <button onClick={() => { this.update(); }}>Rechercher</button> <br />
+                  <Col lg="4">
+                    <input type="text" onChange={this.handleChange} onKeyPress={(e) => { if (e.key === "Enter") this.update() }} />
+                  </Col>
+                  <Col lg="3">
+                    <button onClick={() => { this.update(); }}>Rechercher</button> <br />
+                  </Col>
                 </Row>
                 <Row>
-                  {this.state.selectedPlayer.nom ?
-                    this.state.selectedPlayer.nom :
-                    "Aucun joueur selectionné"}
+                  <Col lg="4">
+                    Joueur selectionné :
+                  </Col>
+                  <Col lg="7">
+                    {this.state.selectedPlayer.nom ?
+                      this.state.selectedPlayer.nom :
+                      NO_PLAYER}
+                  </Col>
                 </Row>
               </CardBody>
             </Card>
@@ -69,7 +76,7 @@ class CreationEquipe extends Component {
                     Attaquant :
                   </Col>
                   <Col lg="6">
-                    {this.state.attaquant.nom ? this.state.attaquant.nom : "Aucun joueur selectionné"}
+                    {this.state.attaquant.nom ? this.state.attaquant.nom : NO_PLAYER}
                   </Col>
                   <Col lg="3">
                     <button onClick={() => {
@@ -82,7 +89,7 @@ class CreationEquipe extends Component {
                     Milieu :
                   </Col>
                   <Col lg="6">
-                    {this.state.milieu.nom ? this.state.milieu.nom : "Aucun joueur selectionné"}
+                    {this.state.milieu.nom ? this.state.milieu.nom : NO_PLAYER}
                   </Col>
                   <Col lg="3">
                     <button onClick={() => {
@@ -94,7 +101,7 @@ class CreationEquipe extends Component {
                   <Col lg="3">
                     Défenseur :
                   </Col>
-                  <Col lg="6">{this.state.defenseur.nom ? this.state.defenseur.nom : "Aucun joueur selectionné"}
+                  <Col lg="6">{this.state.defenseur.nom ? this.state.defenseur.nom : NO_PLAYER}
                   </Col>
                   <Col lg="3">
                     <button onClick={() => {
@@ -106,7 +113,7 @@ class CreationEquipe extends Component {
                   <Col lg="3">
                     Gardien :
                   </Col>
-                  <Col lg="6">{this.state.gardien.nom ? this.state.gardien.nom : "Aucun joueur selectionné"}
+                  <Col lg="6">{this.state.gardien.nom ? this.state.gardien.nom : NO_PLAYER}
                   </Col>
                   <Col lg="3"><button onClick={() => {
                     this.setState({ gardien: this.state.selectedPlayer });
@@ -121,15 +128,6 @@ class CreationEquipe extends Component {
       </Container>
     )
   }
-
-  update() {
-    getJoueursFilter(this.state.recherche)
-      .then((res) => {
-        this.tableJoueurs.populateTable(res.data === "" ? [] : res.data);
-      }
-      );
-  }
-
 }
 
 export default CreationEquipe;

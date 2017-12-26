@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import {
   Badge,
+  Container,
   Row,
   Col,
   Card,
@@ -17,11 +18,11 @@ import axios from 'axios';
 class TableJoueurs extends Component {
 
   constructor(props) {
-      super(props);
-      const data = props.joueurs == null ? [] : props.joueurs;
-      this.state = {
-        joueurs: data      
-      };  
+    super(props);
+    const data = props.joueurs == null ? [] : props.joueurs;
+    this.state = {
+      joueurs: data
+    };
   }
 
   componentDidMount() {
@@ -36,16 +37,16 @@ class TableJoueurs extends Component {
     this.setState({ joueurs });
   }
 
-  selectPlayer (row) {
+  selectPlayer(row) {
     if (this.props.onClick) {
       this.props.onClick(row);
     }
   }
   render() {
     return (
-      <div className="animated fadeIn">
-          <Row>
-          <Col xs="12" lg="12">
+      <Container>
+        <Row>
+          <Col xs="12" lg="12" style={{padding : 0}}>
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify"></i> Joueurs
@@ -53,24 +54,24 @@ class TableJoueurs extends Component {
               <CardBody>
                 <Table responsive striped>
                   <thead>
-                  <tr>
-                    <th>Nom du joueur</th>
-                    <th>Nationalité</th>
-                    <th>Club</th>
-                    <th>Pays du club</th>
-                  </tr>
+                    <tr>
+                      <th>Nom du joueur</th>
+                      <th>Nationalité</th>
+                      <th>Club</th>
+                      <th>Pays du club</th>
+                    </tr>
                   </thead>
                   <tbody >
-                  {this.state.joueurs.map((row) => (
-                  <tr key={row.id} data-item={row} onClick={() => this.selectPlayer(row)} style={{cursor: 'pointer'}}>
-                    <td>{row.nom}</td>
-                    <td >{row.nationalite}</td>
-                    <td>{row.club}</td>
-                    <td>{row.pays_club}</td>
-                    <td>
-                      <Badge color="success">{row.Classement}</Badge>
-                    </td>
-                  </tr>
+                    {this.state.joueurs.map((row) => (
+                      <tr key={row.id} data-item={row} onClick={() => this.selectPlayer(row)} style={{ cursor: 'pointer' }}>
+                        <td>{row.nom}</td>
+                        <td >{row.nationalite}</td>
+                        <td>{row.club}</td>
+                        <td>{row.pays_club}</td>
+                        <td>
+                          <Badge color="success">{row.Classement}</Badge>
+                        </td>
+                      </tr>
                     ))}
                   </tbody>
                 </Table>
@@ -78,7 +79,7 @@ class TableJoueurs extends Component {
             </Card>
           </Col>
         </Row>
-      </div>
+      </Container>
     )
   }
 }
