@@ -27,6 +27,15 @@ export const getJoueursFavoris = (joueur = 1) => {
   });
 }
 
+export const getStatsPos = () => {
+  return new Promise((resolve, reject) => {
+    axios.get(`http://localhost/players.php?statistiques_pos`)
+    .then((res) => {
+      resolve(res);
+    });
+  });
+}
+
 export const updateJoueursFavoris = (user, attaquant, milieu, defenseur, gardien) => {
   return new Promise((resolve, reject) => {
     let params = new URLSearchParams();
