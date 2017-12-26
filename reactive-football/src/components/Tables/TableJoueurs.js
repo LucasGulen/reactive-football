@@ -1,6 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+
 import {
   Badge,
+  Container,
   Row,
   Col,
   Card,
@@ -17,78 +19,84 @@ import axios from 'axios';
 class TableJoueurs extends Component {
 
   constructor(props) {
-      super(props);
-      this.state = {
-        joueurs: [],
-        tenDisplayPlayers:[],
-        nextPlayerInd:0,
-        nbPlayerToDisplay:10,
-        nbPages : 0
-      };  
-      this.getAllJoueurs()
+    super(props);
+    const data = props.joueurs == null ? [] : props.joueurs;
+    this.state = {
+      joueurs: data,
+      tenDisplayPlayers:[],
+      nextPlayerInd:0,
+      nbPlayerToDisplay:10,
+    };
   }
-  
-//Fonction qui charge tous les joueurs dans le state "joueurs" et charge les 10 premiers joueurs dans le state "tenDisplayPlayers"
-getAllJoueurs() {
-  axios.get(`http://localhost/players.php`)
-  .then(res => {
-    const joueurs = res.data;
-    this.setState({ joueurs:joueurs});
-    this.getTenPlayers(0,10);
-    this.setState({nbPages:this.state.joueurs.length/this.state.nbPlayerToDisplay});
-  });
-}
 
-getTenPlayers(startInd,endInd){
-  var table=[]
-  var nbPlayers = this.state.joueurs.length
-  //Pré condition avant l'entrée dans la boucle pour ne pas tenter d'accéder à un indice inexistant dans la liste de joueurs
-  if (!(endInd < nbPlayers)) {
-    endInd=nbPlayers-1
-  }else if ((startInd < 0)){
-    startInd=0
-    endInd=startInd+this.state.nbPlayerToDisplay
+  componentDidMount() {
+    this.props.onRef(this)
   }
-  for(var i=startInd;i<endInd;i++){
-    table[i]=this.state.joueurs[i]
+
+  componentWillUnmount() {
+    this.props.onRef(undefined)
   }
-  this.setState({
-    tenDisplayPlayers:table,
-    nextPlayerInd:endInd
-  });
-}
+
+  populateTable(joueurs) {
+    this.setState({ joueurs });
+    this.getTenPlayers(0,10);    
+  }
+
+  selectPlayer(row) {
+    if (this.props.onClick) {
+      this.props.onClick(row);
+    }
+  }
+
+  getTenPlayers(startInd,endInd){
+    var table=[]
+    var nbPlayers = this.state.joueurs.length
+    //Pré condition avant l'entrée dans la boucle pour ne pas tenter d'accéder à un indice inexistant dans la liste de joueurs
+    if (!(endInd < nbPlayers)) {
+      endInd=nbPlayers-1
+    }else if ((startInd < 0)){
+      startInd=0
+      endInd=startInd+this.state.nbPlayerToDisplay
+    }
+    for(var i=startInd;i<endInd;i++){
+      table[i]=this.state.joueurs[i]
+    }
+    this.setState({
+      tenDisplayPlayers:table,
+      nextPlayerInd:endInd
+    });
+  }
 
   render() {
     return (
-      <div className="animated fadeIn">
-          <button onClick={this.testAjax} />
-          <Row>
-          <Col xs="12" lg="12">
+      <Container>
+        <Row>
+          <Col xs="12" lg="12" style={{padding : 0}}>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> Striped Table
+                <i className="fa fa-align-justify"></i> Joueurs
               </CardHeader>
               <CardBody>
                 <Table responsive striped>
                   <thead>
-                  <tr>
-                    <th>Nom du joueur</th>
-                    <th>Nationalité</th>
-                    <th>Club</th>
-                    <th>Pays du club</th>
-                  </tr>
+                    <tr>
+                      <th>Nom du joueur</th>
+                      <th>Nationalité</th>
+                      <th>Club</th>
+                      <th>Pays du club</th>
+                    </tr>
                   </thead>
                   <tbody >
-                  {this.state.tenDisplayPlayers.map( (row) => (
-                  <tr key={row.id}>
-                    <td>{row.nom}</td>
-                    <td >{row.nationalite}</td>
-                    <td>{row.club}</td>
-                    <td>{row.pays_club}</td>
-                    <td>
-                      <Badge color="success">{row.Classement}</Badge>
-                    </td>
-                  </tr>
+                    {this.state.tenDisplayPlayers.map((row) => (
+                      <tr key={row.id} data-item={row} onClick={() => this.selectPlayer(row)} style={{ cursor: 'pointer' }}>
+                        <td>{row.nom}</td>
+                        <td >{row.nationalite}</td>
+                        <td>{row.club}</td>
+                        <td>{row.pays_club}</td>
+                        <td>
+                          <Badge color="success">{row.Classement}</Badge>
+                        </td>
+                      </tr>
                     ))}
                   </tbody>
                 </Table>
@@ -100,7 +108,7 @@ getTenPlayers(startInd,endInd){
             </Card>
           </Col>
         </Row>
-      </div>
+      </Container>
     )
   }
 }

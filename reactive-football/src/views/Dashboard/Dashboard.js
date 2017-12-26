@@ -6,7 +6,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-       <TableJoueurs/>
+       <TableJoueurs onRef={ref => (this.tableJoueurs= ref)}/>
       </div>
     )
   }
