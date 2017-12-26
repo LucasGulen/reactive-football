@@ -3,9 +3,8 @@
 	header('Content-Type: application/json');
 	require('./player.php');
 	require('./favoris.php');
-	
-	
-	
+	require('./top.php');
+	require('./statistiques.php');
 		
 	$servername = "localhost";
 	$username = "root";
@@ -23,10 +22,112 @@
 		get_players_filter();
 	} else if (isset($_GET['favoris'])){
 		get_favourite_players();
+	} else if (isset($_GET['statistiques_pos'])){
+		get_statistiques_position();
 	} else if (isset($_POST['id_utilisateur'])) {
 		insert_favourites();
 	} else {
 		get_all_players();
+	}
+	
+	function get_statistiques_position() {
+		global $conn;
+		$sql = "	(SELECT COUNT(*) as Choix, j.jou_id, j.jou_nom, j.jou_nationalite, j.jou_club, j.jou_pays_club, j.jou_score 
+					FROM favoris f 
+					JOIN joueur j on f.fav_attaquant = j.jou_id
+					GROUP BY f.fav_attaquant ORDER BY Choix DESC LIMIT 3)
+				UNION all
+					(SELECT COUNT(*) as Choix, j.jou_id, j.jou_nom, j.jou_nationalite, j.jou_club, j.jou_pays_club, j.jou_score 
+					FROM favoris f 
+					JOIN joueur j on f.fav_milieu = j.jou_id
+					GROUP BY f.fav_milieu ORDER BY Choix DESC LIMIT 3)
+				UNION all
+					(SELECT COUNT(*) as Choix, j.jou_id, j.jou_nom, j.jou_nationalite, j.jou_club, j.jou_pays_club, j.jou_score 
+					FROM favoris f 
+					JOIN joueur j on f.fav_defenseur = j.jou_id
+					GROUP BY f.fav_defenseur ORDER BY Choix DESC LIMIT 3)
+				UNION all
+					(SELECT COUNT(*) as Choix, j.jou_id, j.jou_nom, j.jou_nationalite, j.jou_club, j.jou_pays_club, j.jou_score 
+					FROM favoris f 
+					JOIN joueur j on f.fav_gardien = j.jou_id
+					GROUP BY f.fav_gardien ORDER BY Choix DESC LIMIT 3) ";
+		$result = $conn->query($sql);
+		
+		if ($result->num_rows > 0) {
+		// output data of each row
+		
+			// Attaquants
+			$attaquants = [];
+			$row = $result->fetch_assoc();
+			$player = new Player($row["jou_id"], $row["jou_nom"], $row["jou_nationalite"], $row["jou_club"], $row["jou_pays_club"], $row["jou_score"]);
+			$top = new Top(1, $row["Choix"], $player);
+			$attaquants[] = $top;
+			
+			$row = $result->fetch_assoc();
+			$player = new Player($row["jou_id"], $row["jou_nom"], $row["jou_nationalite"], $row["jou_club"], $row["jou_pays_club"], $row["jou_score"]);
+			$top = new Top(2, $row["Choix"], $player);
+			$attaquants[] = $top;
+			
+			$row = $result->fetch_assoc();
+			$player = new Player($row["jou_id"], $row["jou_nom"], $row["jou_nationalite"], $row["jou_club"], $row["jou_pays_club"], $row["jou_score"]);
+			$top = new Top(3, $row["Choix"], $player);
+			$attaquants[] = $top;
+			
+			// milieux
+			$milieux = [];
+			$row = $result->fetch_assoc();
+			$player = new Player($row["jou_id"], $row["jou_nom"], $row["jou_nationalite"], $row["jou_club"], $row["jou_pays_club"], $row["jou_score"]);
+			$top = new Top(1, $row["Choix"], $player);
+			$milieux[] = $top;
+			
+			$row = $result->fetch_assoc();
+			$player = new Player($row["jou_id"], $row["jou_nom"], $row["jou_nationalite"], $row["jou_club"], $row["jou_pays_club"], $row["jou_score"]);
+			$top = new Top(2, $row["Choix"], $player);
+			$milieux[] = $top;
+			
+			$row = $result->fetch_assoc();
+			$player = new Player($row["jou_id"], $row["jou_nom"], $row["jou_nationalite"], $row["jou_club"], $row["jou_pays_club"], $row["jou_score"]);
+			$top = new Top(3, $row["Choix"], $player);
+			$milieux[] = $top;
+			
+			// defenseurs
+			$defenseurs = [];
+			$row = $result->fetch_assoc();
+			$player = new Player($row["jou_id"], $row["jou_nom"], $row["jou_nationalite"], $row["jou_club"], $row["jou_pays_club"], $row["jou_score"]);
+			$top = new Top(1, $row["Choix"], $player);
+			$defenseurs[] = $top;
+			
+			$row = $result->fetch_assoc();
+			$player = new Player($row["jou_id"], $row["jou_nom"], $row["jou_nationalite"], $row["jou_club"], $row["jou_pays_club"], $row["jou_score"]);
+			$top = new Top(2, $row["Choix"], $player);
+			$defenseurs[] = $top;
+			
+			$row = $result->fetch_assoc();
+			$player = new Player($row["jou_id"], $row["jou_nom"], $row["jou_nationalite"], $row["jou_club"], $row["jou_pays_club"], $row["jou_score"]);
+			$top = new Top(3, $row["Choix"], $player);
+			$defenseurs[] = $top;
+			
+			// gardiens
+			$gardiens = [];
+			$row = $result->fetch_assoc();
+			$player = new Player($row["jou_id"], $row["jou_nom"], $row["jou_nationalite"], $row["jou_club"], $row["jou_pays_club"], $row["jou_score"]);
+			$top = new Top(1, $row["Choix"], $player);
+			$gardiens[] = $top;
+			
+			$row = $result->fetch_assoc();
+			$player = new Player($row["jou_id"], $row["jou_nom"], $row["jou_nationalite"], $row["jou_club"], $row["jou_pays_club"], $row["jou_score"]);
+			$top = new Top(2, $row["Choix"], $player);
+			$gardiens[] = $top;
+			
+			$row = $result->fetch_assoc();
+			$player = new Player($row["jou_id"], $row["jou_nom"], $row["jou_nationalite"], $row["jou_club"], $row["jou_pays_club"], $row["jou_score"]);
+			$top = new Top(3, $row["Choix"], $player);
+			$gardiens[] = $top;
+
+			$data = new Statistiques($attaquants, $milieux, $defenseurs, $gardiens);
+			
+			echo json_encode($data);	
+		}
 	}
 	
 	function insert_favourites() {
