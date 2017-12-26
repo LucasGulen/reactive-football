@@ -18,8 +18,9 @@ class TableJoueurs extends Component {
 
   constructor(props) {
       super(props);
+      const data = props.joueurs == null ? [] : props.joueurs;
       this.state = {
-        joueurs: []
+        joueurs: data      
       };  
   }
 
@@ -35,6 +36,11 @@ class TableJoueurs extends Component {
     this.setState({ joueurs });
   }
 
+  selectPlayer (row) {
+    if (this.props.onClick) {
+      this.props.onClick(row);
+    }
+  }
   render() {
     return (
       <div className="animated fadeIn">
@@ -56,7 +62,7 @@ class TableJoueurs extends Component {
                   </thead>
                   <tbody >
                   {this.state.joueurs.map((row) => (
-                  <tr key={row.id}>
+                  <tr key={row.id} data-item={row} onClick={() => this.selectPlayer(row)} style={{cursor: 'pointer'}}>
                     <td>{row.nom}</td>
                     <td >{row.nationalite}</td>
                     <td>{row.club}</td>
@@ -68,16 +74,6 @@ class TableJoueurs extends Component {
                     ))}
                   </tbody>
                 </Table>
-                <Pagination>
-                  <PaginationItem disabled><PaginationLink previous href="#">Prev</PaginationLink></PaginationItem>
-                  <PaginationItem active>
-                    <PaginationLink href="#">1</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem><PaginationLink href="#">2</PaginationLink></PaginationItem>
-                  <PaginationItem><PaginationLink href="#">3</PaginationLink></PaginationItem>
-                  <PaginationItem><PaginationLink href="#">4</PaginationLink></PaginationItem>
-                  <PaginationItem><PaginationLink next href="#">Next</PaginationLink></PaginationItem>
-                </Pagination>
               </CardBody>
             </Card>
           </Col>
