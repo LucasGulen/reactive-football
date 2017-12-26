@@ -15,7 +15,6 @@ import {
 
 class CreationEquipe extends Component {
 
-
   constructor(props) {
     super(props);
     this.state = {recherche : ""};
