@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 29 Novembre 2017 à 08:10
+-- Généré le :  Mar 26 Décembre 2017 à 17:38
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -19,6 +19,27 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `reactive-football`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `favoris`
+--
+
+CREATE TABLE `favoris` (
+  `fav_id` int(11) NOT NULL,
+  `fav_attaquant` int(11) DEFAULT NULL,
+  `fav_milieu` int(11) DEFAULT NULL,
+  `fav_defenseur` int(11) DEFAULT NULL,
+  `fav_gardien` int(11) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `favoris`
+--
+
+INSERT INTO `favoris` (`fav_id`, `fav_attaquant`, `fav_milieu`, `fav_defenseur`, `fav_gardien`) VALUES
+(1, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -421,11 +442,18 @@ INSERT INTO `joueur` (`jou_id`, `jou_nom`, `jou_nationalite`, `jou_club`, `jou_p
 (379, 'Yannick Bolasie', 'Congo', 'Everton', 'England', 0),
 (380, 'Yevhen Konoplyanka', 'Ukraine', 'Schalke', 'Germany', 0),
 (381, 'Yoshito Okubo', 'Japan', 'Kawasaki Frontale', 'Japan', 0),
-(382, 'Zhang Linpeng', 'China', 'Guangzhou', 'China', 0);
+(382, 'Zhang Linpeng', 'China', 'Guangzhou', 'China', 0),
+(0, 'Aucun joueur selectionne', 'Aucun joueur selectionne', 'Aucun joueur selectionne', 'Aucun joueur selectionne', 0);
 
 --
 -- Index pour les tables exportées
 --
+
+--
+-- Index pour la table `favoris`
+--
+ALTER TABLE `favoris`
+  ADD PRIMARY KEY (`fav_id`);
 
 --
 -- Index pour la table `joueur`
@@ -438,10 +466,15 @@ ALTER TABLE `joueur`
 --
 
 --
+-- AUTO_INCREMENT pour la table `favoris`
+--
+ALTER TABLE `favoris`
+  MODIFY `fav_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT pour la table `joueur`
 --
 ALTER TABLE `joueur`
-  MODIFY `jou_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=383;
+  MODIFY `jou_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=406;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

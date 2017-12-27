@@ -7,11 +7,10 @@ class Statistiques
 	public $gardiens;
 	// doit recevoir que des tableaux
 	public function __construct($attaquants, $milieux, $defenseurs, $gardiens) {
-			$this->attaquants = $attaquants;
-			$this->milieux = $milieux;
-			$this->defenseurs = $defenseurs;
-			$this->gardiens = $gardiens;
-		
+		$this->attaquants = $attaquants;
+		$this->milieux = $milieux;
+		$this->defenseurs = $defenseurs;
+		$this->gardiens = $gardiens;
     }
 }
 ?>

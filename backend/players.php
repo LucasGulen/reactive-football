@@ -17,7 +17,7 @@
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	// Check connection
 	if ($conn->connect_error) {
-		die("Problèmes de connexion: " . $conn->connect_error);
+		die("Problï¿½mes de connexion: " . $conn->connect_error);
 	} 
 
 	if (isset($_GET['joueurs'])) {
