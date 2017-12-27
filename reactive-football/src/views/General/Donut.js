@@ -38,6 +38,7 @@ class Donut extends Component {
           this.setDonut(this.state.statistiques.all);
         })});
   }
+  
   setDonut(data){
     var tempData=this.state.data
     for(var i=0;i<data.length;i++){
