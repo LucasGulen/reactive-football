@@ -45,6 +45,24 @@ export const getStatsAll = () => {
   });
 }
 
+export const getStatsClub = () => {
+  return new Promise((resolve, reject) => {
+    axios.get(`http://localhost/players.php?statistiques_club`)
+    .then((res) => {
+      resolve(res);
+    });
+  });
+}
+
+export const getNbUsers = () => {
+  return new Promise((resolve, reject) => {
+    axios.get(`http://localhost/players.php?nbUsers`)
+    .then((res) => {
+      resolve(res);
+    });
+  });
+}
+
 export const updateJoueursFavoris = (user, attaquant, milieu, defenseur, gardien) => {
   return new Promise((resolve, reject) => {
     let params = new URLSearchParams();
