@@ -53,21 +53,25 @@
 					(SELECT COUNT(*) as Choix, j.jou_id, j.jou_nom, j.jou_nationalite, j.jou_club, j.jou_pays_club, j.jou_score 
 						FROM favoris f 
 						JOIN joueur j on f.fav_attaquant = j.jou_id
+						WHERE j.jou_id != 0
 						GROUP BY j.jou_club ORDER BY Choix)
 					UNION all
 						(SELECT COUNT(*) as Choix, j.jou_id, j.jou_nom, j.jou_nationalite, j.jou_club, j.jou_pays_club, j.jou_score 
 						FROM favoris f 
 						JOIN joueur j on f.fav_milieu = j.jou_id
+						WHERE j.jou_id != 0
 						GROUP BY j.jou_club ORDER BY Choix)
 					UNION all
 						(SELECT COUNT(*) as Choix, j.jou_id, j.jou_nom, j.jou_nationalite, j.jou_club, j.jou_pays_club, j.jou_score 
 						FROM favoris f 
 						JOIN joueur j on f.fav_defenseur = j.jou_id
+						WHERE j.jou_id != 0
 						GROUP BY j.jou_club ORDER BY Choix)
 					UNION all
 						(SELECT COUNT(*) as Choix, j.jou_id, j.jou_nom, j.jou_nationalite, j.jou_club, j.jou_pays_club, j.jou_score 
 						FROM favoris f 
 						JOIN joueur j on f.fav_gardien = j.jou_id
+						WHERE j.jou_id != 0
 						GROUP BY j.jou_club ORDER BY Choix)
 						
 						) as T
@@ -94,28 +98,32 @@
 					(SELECT COUNT(*) as Choix, j.jou_id, j.jou_nom, j.jou_nationalite, j.jou_club, j.jou_pays_club, j.jou_score 
 						FROM favoris f 
 						JOIN joueur j on f.fav_attaquant = j.jou_id
+						WHERE j.jou_id != 0
 						GROUP BY j.jou_id ORDER BY Choix)
 					UNION all
 						(SELECT COUNT(*) as Choix, j.jou_id, j.jou_nom, j.jou_nationalite, j.jou_club, j.jou_pays_club, j.jou_score 
 						FROM favoris f 
 						JOIN joueur j on f.fav_milieu = j.jou_id
+						WHERE j.jou_id != 0
 						GROUP BY j.jou_id ORDER BY Choix)
 					UNION all
 						(SELECT COUNT(*) as Choix, j.jou_id, j.jou_nom, j.jou_nationalite, j.jou_club, j.jou_pays_club, j.jou_score 
 						FROM favoris f 
 						JOIN joueur j on f.fav_defenseur = j.jou_id
+						WHERE j.jou_id != 0
 						GROUP BY j.jou_id ORDER BY Choix)
 					UNION all
 						(SELECT COUNT(*) as Choix, j.jou_id, j.jou_nom, j.jou_nationalite, j.jou_club, j.jou_pays_club, j.jou_score 
 						FROM favoris f 
 						JOIN joueur j on f.fav_gardien = j.jou_id
+						WHERE j.jou_id != 0
 						GROUP BY j.jou_id ORDER BY Choix)
 						
 						) as T
 						GROUP BY T.jou_id,T.jou_nom
 						ORDER BY NbApparition DESC
 						LIMIT 3;";
-		$result = $conn->query($sql);
+		$result = $conn->query($sql) or die(mysqli_error($conn)); ;
 		$podium = [];
 		if ($result->num_rows > 0) {
 
@@ -145,21 +153,25 @@
 		$sql = "	(SELECT COUNT(*) as Choix, j.jou_id, j.jou_nom, j.jou_nationalite, j.jou_club, j.jou_pays_club, j.jou_score 
 					FROM favoris f 
 					JOIN joueur j on f.fav_attaquant = j.jou_id
+					WHERE j.jou_id != 0
 					GROUP BY f.fav_attaquant ORDER BY Choix DESC LIMIT 3)
 				UNION all
 					(SELECT COUNT(*) as Choix, j.jou_id, j.jou_nom, j.jou_nationalite, j.jou_club, j.jou_pays_club, j.jou_score 
 					FROM favoris f 
 					JOIN joueur j on f.fav_milieu = j.jou_id
+					WHERE j.jou_id != 0
 					GROUP BY f.fav_milieu ORDER BY Choix DESC LIMIT 3)
 				UNION all
 					(SELECT COUNT(*) as Choix, j.jou_id, j.jou_nom, j.jou_nationalite, j.jou_club, j.jou_pays_club, j.jou_score 
 					FROM favoris f 
 					JOIN joueur j on f.fav_defenseur = j.jou_id
+					WHERE j.jou_id != 0
 					GROUP BY f.fav_defenseur ORDER BY Choix DESC LIMIT 3)
 				UNION all
 					(SELECT COUNT(*) as Choix, j.jou_id, j.jou_nom, j.jou_nationalite, j.jou_club, j.jou_pays_club, j.jou_score 
 					FROM favoris f 
 					JOIN joueur j on f.fav_gardien = j.jou_id
+					WHERE j.jou_id != 0
 					GROUP BY f.fav_gardien ORDER BY Choix DESC LIMIT 3) ";
 		$result = $conn->query($sql);
 		
