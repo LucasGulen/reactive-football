@@ -53,7 +53,6 @@ class Chart extends Component {
           <CardBody>
             <div className="chart-wrapper">
               <Bar data={this.state.data}
-                
                 options={{
                   legend: false,
                   ticks: {

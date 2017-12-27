@@ -2,7 +2,7 @@ export default {
   items: [
     {
       name: 'Accueil',
-      url: '/dashboard',
+      url: '/accueil',
       icon: 'icon-home'
     },
     {
