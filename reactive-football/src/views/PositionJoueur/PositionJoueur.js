@@ -75,39 +75,41 @@ class PositionJoueur extends Component {
 
   render() {
     return (
-      <Container>
-        <Row>
-          <Col lg="12">
-            <Card>
-              <CardHeader>
-                Choisir la position
+      <div className="animated fadeIn">
+        <Container>
+          <Row>
+            <Col lg="12">
+              <Card>
+                <CardHeader>
+                  Choisir la position
             </CardHeader>
-              <CardBody>
-                <Input type="select" onChange={(e) => this.handleChange(e)}>
-                  <option value="attaquants">Attaquants</option>
-                  <option value="milieux">Milieux</option>
-                  <option value="defenseurs">Défenseurs</option>
-                  <option value="gardiens">Gardiens</option>
-                </Input>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col lg="12">
-            <Card>
-              <CardHeader>
-                Pie Chart
+                <CardBody>
+                  <Input type="select" onChange={(e) => this.handleChange(e)}>
+                    <option value="attaquants">Attaquants</option>
+                    <option value="milieux">Milieux</option>
+                    <option value="defenseurs">Défenseurs</option>
+                    <option value="gardiens">Gardiens</option>
+                  </Input>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg="12">
+              <Card>
+                <CardHeader>
+                  Pie Chart
             </CardHeader>
-              <CardBody>
-                <div className="chart-wrapper">
-                  <Pie data={this.state.data} redraw />
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+                <CardBody>
+                  <div className="chart-wrapper">
+                    <Pie data={this.state.data} redraw />
+                  </div>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     )
   }
 }
