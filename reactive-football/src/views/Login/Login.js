@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Row, Col, CardGroup, Card, CardBody, Button, Input, InputGroup, InputGroupAddon} from 'reactstrap';
+import {Modal,ModalHeader,ModalFooter,ModalBody,Container, Row, Col, CardGroup, Card, CardBody, Button, Input, InputGroup, InputGroupAddon} from 'reactstrap';
 import Signup from './Signup';
 import {getUser} from '../../functions/Joueur';
 
@@ -10,8 +10,11 @@ class Login extends Component {
       signup : false,
       login : "",
       password : "",
-      connexion: false
+      connexion: false,
+      modal : false,
+      user : ""
     };
+    this.toggle = this.toggle.bind(this);    
   }
 
   handleChange(e) {
@@ -24,21 +27,34 @@ class Login extends Component {
     getUser(this.state.login, this.state.password)
       .then((res) => {
       this.setState({connexion : res.data})
+      this.setState({user  : res.data.uti_id});
       this.handleLogin();
+      console.log(this.state.connexion);
+      if (!this.state.connexion) {
+        localStorage.setItem('connected',false);    
+        localStorage.setItem('userId','');
+        this.toggle();
+      }else{
+        localStorage.setItem('connected',true);    
+        localStorage.setItem('userId',this.state.user);
+      }
     });
   }
 
   handleLogin(){
-    if (!this.state.connexion){
-      
-    }
     this.props.onLogin(this.state.connexion);
+  }
+
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
   }
 
   render() {
     if (this.state.signup){
       return(
-        <Signup />
+        <Signup onSignup={signupState =>{this.props.onLogin(this.state.signup)}} />
       )
     }else{
       return (
@@ -62,6 +78,15 @@ class Login extends Component {
                       <Row>
                         <Col xs="6">
                           <Button color="primary" className="px-4" onClick={()=>this.Connexion()}>Connexion</Button>
+                          <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                            <ModalHeader toggle={this.toggle}>Erreur de connexion</ModalHeader>
+                            <ModalBody>
+                              Nous n'avons malheureusement pas réussi à vous identifier. Veuillez vous assurer que vous avez bien saisie vos identifiants.
+                            </ModalBody>
+                            <ModalFooter>
+                              <Button color="primary" onClick={this.toggle}>Ok</Button>{' '}
+                            </ModalFooter>
+                          </Modal>
                         </Col>
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0">Mot de passe oublié ?</Button>

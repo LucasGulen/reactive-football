@@ -75,6 +75,19 @@ export const getUser = (login, password) => {
   });
 }
 
+export const insertUser = (login, email, password) => {
+  return new Promise((resolve, reject) => {
+    let params = new URLSearchParams();
+    params.append("login", login);
+    params.append("email", email);
+    params.append("password", password);    
+    axios.post(`http://localhost/players.php`, params)
+    .then((res) => {
+      resolve(res.data);
+    });
+  });
+}
+
 export const updateJoueursFavoris = (user, attaquant, milieu, defenseur, gardien) => {
   return new Promise((resolve, reject) => {
     let params = new URLSearchParams();
