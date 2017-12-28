@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {Doughnut} from 'react-chartjs-2';
-import {Card, CardHeader, CardBody} from 'reactstrap';
+import React, { Component } from 'react';
+import { Doughnut } from 'react-chartjs-2';
+import { Card, CardHeader, CardBody } from 'reactstrap';
 import { getStatsAll } from './../../functions/Joueur';
 
 const doughnut = {
@@ -34,32 +34,34 @@ class Donut extends Component {
     };
     getStatsAll()
       .then((res) => {
-        this.setState({ statistiques: res.data },() =>{
+        this.setState({ statistiques: res.data }, () => {
           this.setDonut(this.state.statistiques.all);
-        })});
+        })
+      });
   }
-  setDonut(data){
-    var tempData=this.state.data
-    for(var i=0;i<data.length;i++){
-      tempData.datasets[0].data[i]=data[i].score
-      tempData.labels[i]=data[i].joueur.nom
+
+  setDonut(data) {
+    var tempData = this.state.data
+    for (var i = 0; i < data.length; i++) {
+      tempData.datasets[0].data[i] = data[i].score
+      tempData.labels[i] = data[i].joueur.nom
     }
-    this.setState({data : tempData});
+    this.setState({ data: tempData });
   }
 
   render() {
     return (
       <div className="animated fadeIn">
         <Card>
-            <CardHeader>
-              Joueurs favoris en temps réel !
+          <CardHeader>
+            Joueurs favoris en temps réel !
             </CardHeader>
-            <CardBody>
-              <div className="chart-wrapper">
-                <Doughnut data={this.state.data} redraw/>
-              </div>
-            </CardBody>
-          </Card>
+          <CardBody>
+            <div className="chart-wrapper">
+              <Doughnut data={this.state.data} redraw />
+            </div>
+          </CardBody>
+        </Card>
       </div>
     )
   }

@@ -7,10 +7,10 @@ import Breadcrumb from '../../components/Breadcrumb/';
 import Aside from '../../components/Aside/';
 import Footer from '../../components/Footer/';
 
-import Dashboard from '../../views/Dashboard/';
 import PositionJoueur from '../../views/PositionJoueur/';
 import General from '../../views/General/';
 import CreationEquipe from '../../views/CreationEquipe/';
+import Accueil from '../../views/Accueil/Accueil';
 
 const login = false;
 
@@ -24,11 +24,11 @@ class Full extends Component {
           <main className="main">
           <Container fluid>
               <Switch>
-                <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
+                <Route path="/accueil" name="Accueil" component={Accueil}/>
                 <Route path="/position" name="Position" component={PositionJoueur}/>
                 <Route path="/general" name="General" component={General}/>
-                <Route path="/equipe" name="CréationEquipe" component={CreationEquipe}/>
-                <Redirect from="/" to="/dashboard"/>
+                <Route path="/equipe" name="CreationEquipe" component={CreationEquipe}/>
+                <Redirect from="/" to="/accueil"/>
               </Switch>
             </Container>
           </main>

@@ -1,0 +1,17 @@
+.welcome {
+    font-size: 40px;
+    text-align: center;
+}
+.text-center {
+    font-size: 25px;
+    text-align: center;
+}
+
+.welcome img {
+    width: 400px ;
+    border-radius : 20px ;
+}
+
+.clickable {
+    cursor: pointer;
+}

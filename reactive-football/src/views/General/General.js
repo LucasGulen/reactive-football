@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Chart from './Chart';
 import Widget from './Widget';
-import {Doughnut} from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import {
   Row,
   Col
@@ -17,12 +17,12 @@ class General extends Component {
             <Donut />
           </Col>
           <Col xs="6" >
-            <Chart/>
+            <Chart />
           </Col >
         </Row>
         <Row>
-        <Col sm="12" md={{ size: 8, offset: 2 }}  >
-            <Widget/>
+          <Col sm="12" md={{ size: 8, offset: 2 }}  >
+            <Widget />
           </Col >
         </Row>
       </div>

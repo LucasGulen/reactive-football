@@ -162,7 +162,7 @@ class CreationEquipe extends Component {
                     </Col>
                     <Col lg="2">
                       <Button onClick={() => {
-                        this.setState({ milieu: {}});
+                        this.setState({ milieu: {} });
                       }}>Effacer</Button>
                     </Col>
                   </Row>
