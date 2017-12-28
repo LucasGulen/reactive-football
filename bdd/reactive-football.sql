@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  jeu. 28 déc. 2017 à 04:52
+-- Généré le :  jeu. 28 déc. 2017 à 17:22
 -- Version du serveur :  10.1.26-MariaDB
 -- Version de PHP :  7.1.9
 
@@ -462,18 +462,19 @@ INSERT INTO `joueur` (`jou_id`, `jou_nom`, `jou_nationalite`, `jou_club`, `jou_p
 --
 
 CREATE TABLE `utilisateur` (
+  `uti_id` int(11) NOT NULL,
   `uti_pseudo` varchar(50) NOT NULL,
-  `uti_email` varchar(50) NOT NULL,
+  `uti_email` varchar(100) NOT NULL,
   `uti_photo` longblob,
-  `uti_password` varchar(50) DEFAULT NULL
+  `uti_password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`uti_pseudo`, `uti_email`, `uti_photo`, `uti_password`) VALUES
-('admin', 'admin@admin.ch', '', 'admin');
+INSERT INTO `utilisateur` (`uti_id`, `uti_pseudo`, `uti_email`, `uti_photo`, `uti_password`) VALUES
+(1, 'admin', 'admin@admin.ch', '', 'admin');
 
 --
 -- Index pour les tables déchargées
@@ -495,6 +496,7 @@ ALTER TABLE `joueur`
 -- Index pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
+  ADD PRIMARY KEY (`uti_id`),
   ADD UNIQUE KEY `uti_pseudo` (`uti_pseudo`);
 
 --
@@ -512,6 +514,12 @@ ALTER TABLE `favoris`
 --
 ALTER TABLE `joueur`
   MODIFY `jou_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=406;
+
+--
+-- AUTO_INCREMENT pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  MODIFY `uti_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -26,6 +26,8 @@
 		get_favourite_players();
 	} else if (isset($_GET['nbUsers'])){
 		get_nbUsers();
+	}else if (isset($_POST['login'],$_POST['password'],$_POST['email'])) {
+		insert_user();
 	}else if (isset($_POST['login'], $_POST['password'])) {
 		get_User();
 	}else if (isset($_GET['statistiques_all'])){
@@ -37,7 +39,25 @@
 	} else if (isset($_POST['id_utilisateur'])) {
 		insert_favourites();
 	} else {
-		get_all_players();
+		get_all_players();		
+	}
+	
+	function insert_user () {
+		global $conn;
+		$login = $_POST['login'];
+		$email = $_POST['email'];
+		$password = $_POST['password'];
+		if ($login != "" && $password!="" && $email!=""){
+			$sql = "INSERT INTO utilisateur(uti_pseudo, uti_email, uti_password) VALUES ('$login','$email','$password')";
+			if ($conn->query($sql) === TRUE) {
+				echo json_encode(true);
+			} else {
+				echo json_encode(false);
+			}
+		}else{
+			echo json_encode(false);
+		}
+
 	}
 	
 	function get_User () {
@@ -46,7 +66,7 @@
 		$result = $conn->query($sql);
 		$row = $result->fetch_assoc();
 		if ($row != null){
-			echo json_encode(true);
+			echo json_encode($row);
 		}else {
 			echo json_encode(false);
 		}
