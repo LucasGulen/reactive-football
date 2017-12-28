@@ -24,6 +24,12 @@ class HeaderDropdown extends Component {
     });
   }
 
+  logout() {
+    if (localStorage.getItem('user')) {
+      localStorage.removeItem('user');
+    }
+  }
+
   dropAccnt() {
     return (
       <NavDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
@@ -33,7 +39,7 @@ class HeaderDropdown extends Component {
         <DropdownMenu right>
           <DropdownItem header tag="div" className="text-center"><strong>Profil</strong></DropdownItem>
           <DropdownItem><i className="icon-settings"></i> Paramètres </DropdownItem>
-          <DropdownItem><i className="fa fa-lock"></i> Se déconnecter </DropdownItem>
+          <DropdownItem onClick={ this.logout()}><i className="fa fa-lock"></i> Se déconnecter </DropdownItem>
         </DropdownMenu>
       </NavDropdown>
     );
