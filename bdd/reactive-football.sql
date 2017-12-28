@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Client :  127.0.0.1
--- Généré le :  Mar 26 Décembre 2017 à 17:38
--- Version du serveur :  5.7.14
--- Version de PHP :  5.6.25
+-- Hôte : 127.0.0.1
+-- Généré le :  jeu. 28 déc. 2017 à 04:52
+-- Version du serveur :  10.1.26-MariaDB
+-- Version de PHP :  7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -35,11 +37,19 @@ CREATE TABLE `favoris` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `favoris`
+-- Déchargement des données de la table `favoris`
 --
 
 INSERT INTO `favoris` (`fav_id`, `fav_attaquant`, `fav_milieu`, `fav_defenseur`, `fav_gardien`) VALUES
-(1, 0, 0, 0, 0);
+(1, 0, 0, 0, 0),
+(2, 1, 2, 3, 4),
+(3, 1, 2, 3, 4),
+(56, 54, 32, 45, 5),
+(7, 6, 5, 5, 5),
+(57, 1, 1, 1, 1),
+(58, 1, 1, 1, 1),
+(59, 23, 3, 3, 3),
+(60, 5, 5, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -57,7 +67,7 @@ CREATE TABLE `joueur` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `joueur`
+-- Déchargement des données de la table `joueur`
 --
 
 INSERT INTO `joueur` (`jou_id`, `jou_nom`, `jou_nationalite`, `jou_club`, `jou_pays_club`, `jou_score`) VALUES
@@ -445,8 +455,28 @@ INSERT INTO `joueur` (`jou_id`, `jou_nom`, `jou_nationalite`, `jou_club`, `jou_p
 (382, 'Zhang Linpeng', 'China', 'Guangzhou', 'China', 0),
 (0, 'Aucun joueur selectionne', 'Aucun joueur selectionne', 'Aucun joueur selectionne', 'Aucun joueur selectionne', 0);
 
+-- --------------------------------------------------------
+
 --
--- Index pour les tables exportées
+-- Structure de la table `utilisateur`
+--
+
+CREATE TABLE `utilisateur` (
+  `uti_pseudo` varchar(50) NOT NULL,
+  `uti_email` varchar(50) NOT NULL,
+  `uti_photo` longblob,
+  `uti_password` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`uti_pseudo`, `uti_email`, `uti_photo`, `uti_password`) VALUES
+('admin', 'admin@admin.ch', '', 'admin');
+
+--
+-- Index pour les tables déchargées
 --
 
 --
@@ -462,19 +492,28 @@ ALTER TABLE `joueur`
   ADD PRIMARY KEY (`jou_id`);
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- Index pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  ADD UNIQUE KEY `uti_pseudo` (`uti_pseudo`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
 -- AUTO_INCREMENT pour la table `favoris`
 --
 ALTER TABLE `favoris`
-  MODIFY `fav_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `fav_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
 --
 -- AUTO_INCREMENT pour la table `joueur`
 --
 ALTER TABLE `joueur`
   MODIFY `jou_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=406;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
