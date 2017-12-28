@@ -50,7 +50,12 @@
 		if ($login != "" && $password!="" && $email!=""){
 			$sql = "INSERT INTO utilisateur(uti_pseudo, uti_email, uti_password) VALUES ('$login','$email','$password')";
 			if ($conn->query($sql) === TRUE) {
-				echo json_encode(true);
+				$sql = "INSERT INTO favoris(fav_attaquant, fav_milieu, fav_defenseur, fav_gardien) VALUES (0, 0, 0, 0)";
+				if ($conn->query($sql) === TRUE) {
+					echo json_encode(true);
+				} else {
+					echo json_encode(false);
+				}
 			} else {
 				echo json_encode(false);
 			}
@@ -157,7 +162,7 @@
 						GROUP BY T.jou_id,T.jou_nom
 						ORDER BY NbApparition DESC
 						LIMIT 3;";
-		$result = $conn->query($sql) or die(mysqli_error($conn)); ;
+		$result = $conn->query($sql);
 		$podium = [];
 		if ($result->num_rows > 0) {
 
@@ -308,16 +313,19 @@
 		global $conn;
 		$sql = "SELECT jou_id, jou_nom, jou_nationalite, jou_club, jou_pays_club, jou_score FROM `favoris` f
 				JOIN joueur j ON f.fav_attaquant = j.jou_id
+				WHERE fav_id = $_GET[favoris]
 				UNION ALL
 				SELECT jou_id, jou_nom, jou_nationalite, jou_club, jou_pays_club, jou_score FROM `favoris` f
 				JOIN joueur j ON f.fav_milieu = j.jou_id
+				WHERE fav_id = $_GET[favoris]
 				UNION ALL
 				SELECT jou_id, jou_nom, jou_nationalite, jou_club, jou_pays_club, jou_score FROM `favoris` f
 				JOIN joueur j ON f.fav_defenseur = j.jou_id
+				WHERE fav_id = $_GET[favoris]
 				UNION ALL
 				SELECT jou_id, jou_nom, jou_nationalite, jou_club, jou_pays_club, jou_score FROM `favoris` f
 				JOIN joueur j ON f.fav_gardien = j.jou_id
-				WHERE fav_id = 1 ";
+				WHERE fav_id = $_GET[favoris] ";
 		$result = $conn->query($sql);
 		
 		if ($result->num_rows > 0) {
@@ -330,7 +338,7 @@
 			$defenseur = new Player($row["jou_id"], $row["jou_nom"], $row["jou_nationalite"], $row["jou_club"], $row["jou_pays_club"], $row["jou_score"]);
 			$row = $result->fetch_assoc();
 			$gardien = new Player($row["jou_id"], $row["jou_nom"], $row["jou_nationalite"], $row["jou_club"], $row["jou_pays_club"], $row["jou_score"]);
-			$data = new Favoris(1, $attaquant, $milieu, $defenseur, $gardien);
+			$data = new Favoris($_GET['favoris'], $attaquant, $milieu, $defenseur, $gardien);
 			echo json_encode($data);	
 		}	
 	}

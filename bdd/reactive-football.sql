@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le :  jeu. 28 déc. 2017 à 17:22
--- Version du serveur :  10.1.26-MariaDB
--- Version de PHP :  7.1.9
+-- Client :  127.0.0.1
+-- Généré le :  Jeu 28 Décembre 2017 à 20:45
+-- Version du serveur :  5.7.14
+-- Version de PHP :  5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -37,7 +35,7 @@ CREATE TABLE `favoris` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `favoris`
+-- Contenu de la table `favoris`
 --
 
 INSERT INTO `favoris` (`fav_id`, `fav_attaquant`, `fav_milieu`, `fav_defenseur`, `fav_gardien`) VALUES
@@ -49,7 +47,25 @@ INSERT INTO `favoris` (`fav_id`, `fav_attaquant`, `fav_milieu`, `fav_defenseur`,
 (57, 1, 1, 1, 1),
 (58, 1, 1, 1, 1),
 (59, 23, 3, 3, 3),
-(60, 5, 5, 4, 4);
+(60, 5, 5, 4, 4),
+(61, 1, 2, 3, 4),
+(70, 0, 0, 0, 0),
+(71, 0, 0, 0, 0),
+(72, 0, 0, 0, 0),
+(73, 0, 0, 0, 0),
+(74, 0, 0, 0, 0),
+(75, 0, 0, 0, 0),
+(76, 0, 0, 0, 0),
+(77, 0, 0, 0, 0),
+(100, 0, 0, 0, 0),
+(101, 0, 0, 0, 0),
+(102, 0, 0, 0, 0),
+(103, 0, 0, 0, 0),
+(104, 0, 0, 0, 0),
+(105, 0, 0, 0, 0),
+(106, 0, 0, 0, 0),
+(107, 1, 1, 1, 1),
+(108, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -67,7 +83,7 @@ CREATE TABLE `joueur` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `joueur`
+-- Contenu de la table `joueur`
 --
 
 INSERT INTO `joueur` (`jou_id`, `jou_nom`, `jou_nationalite`, `jou_club`, `jou_pays_club`, `jou_score`) VALUES
@@ -470,14 +486,35 @@ CREATE TABLE `utilisateur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `utilisateur`
+-- Contenu de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`uti_id`, `uti_pseudo`, `uti_email`, `uti_photo`, `uti_password`) VALUES
-(1, 'admin', 'admin@admin.ch', '', 'admin');
+(1, 'admin', 'admin@admin.ch', '', 'admin'),
+(37, 'user', 'user@user.com', NULL, 'user'),
+(39, 'abc', '', NULL, 'abc'),
+(42, 'freebox', 'flavio_slb4@hotmail.com', NULL, 'abc'),
+(61, 'user2', '', NULL, 'user2'),
+(70, 'Flavio', 'flavio_slb4@hotmail.com', NULL, 'Barreiro'),
+(73, 'lifjwebfkweb', 'kjwnbejgkrbwegkj', NULL, 'kjbkjb'),
+(74, 'kjwngbkjngjernk', 'jn', NULL, 'kjnkj'),
+(75, 'rtnjrentjrntj', 'jrentjnerjtenr', NULL, 'jtnrejntern'),
+(76, 'jnrgjerngker', 'jerngkjegnerknj', NULL, 'kerngkgn'),
+(77, 'ljggkerjgerkj', 'kljgerkljgerkljgeklj', NULL, 'lkjgeklrjgklerj'),
+(79, 'riegioerjgierioj', 'ijoerijgioerjogijeriogjo', NULL, 'qijoigerjogjeriojgioerj'),
+(80, 'kerlnjgjerj', 'ihreijgherighi', NULL, 'ihgeruihgeruih'),
+(100, 'rjekjgergjerioji', 'owrijgerjgerjoij', NULL, 'ofgjweojgerojgioerj'),
+(101, 'njergkjerhnjkh', 'jhfrwehgjerhgj', NULL, 'jhferkhgekr'),
+(102, 'ofergerj', 'jgerge', NULL, 'jgerjghe'),
+(103, 'rekgjnergjkern', 'kjnrgjengkjern', NULL, 'kjngkjenger'),
+(104, 'kjnfkjeng', 'kjnekgnek', NULL, 'kjnkrng'),
+(105, 'klnmkl', 'kmk', NULL, 'mk'),
+(106, 'lngengjn', 'jnj', NULL, 'nj'),
+(107, 'nn', 'mn', NULL, 'mnm'),
+(108, 'mn', 'nj', NULL, 'jn');
 
 --
--- Index pour les tables déchargées
+-- Index pour les tables exportées
 --
 
 --
@@ -500,28 +537,24 @@ ALTER TABLE `utilisateur`
   ADD UNIQUE KEY `uti_pseudo` (`uti_pseudo`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT pour les tables exportées
 --
 
 --
 -- AUTO_INCREMENT pour la table `favoris`
 --
 ALTER TABLE `favoris`
-  MODIFY `fav_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
-
+  MODIFY `fav_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 --
 -- AUTO_INCREMENT pour la table `joueur`
 --
 ALTER TABLE `joueur`
   MODIFY `jou_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=406;
-
 --
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `uti_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
-COMMIT;
-
+  MODIFY `uti_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
