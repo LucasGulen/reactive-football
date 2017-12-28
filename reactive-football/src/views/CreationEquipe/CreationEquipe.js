@@ -24,7 +24,7 @@ class CreationEquipe extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.update = this.update.bind(this);
     this.getFavoris = this.getFavoris.bind(this);
-    
+
     if (localStorage.getItem('user')) {
       this.update();
     }
@@ -46,7 +46,7 @@ class CreationEquipe extends Component {
   getFavoris() {
     const userId = JSON.parse(localStorage.getItem('user')).uti_id;
     getJoueursFavoris(userId)
-      .then((res) => { 
+      .then((res) => {
         this.setState({
           attaquant: res.data.attaquant,
           milieu: res.data.milieu,
@@ -57,10 +57,10 @@ class CreationEquipe extends Component {
   }
 
   render() {
-    if(localStorage.getItem('user')) {
+    if (localStorage.getItem('user')) {
       return this.showCreationEquipe();
-    }else{
-      return <Login onLogin={() => {this.update()}} />;
+    } else {
+      return <Login onLogin={ this.update } />;
     }
   }
 
@@ -94,16 +94,17 @@ class CreationEquipe extends Component {
                 <Row>
                   <Col lg="3">
                     <Button onClick={() => {
-                        this.setState({isUpdating: true});
-                        updateJoueursFavoris(1, 
+                      this.setState({ isUpdating: true });
+                      const userId = JSON.parse(localStorage.getItem('user')).uti_id;
+                      updateJoueursFavoris(userId,
                         this.state.attaquant.id,
                         this.state.milieu.id,
                         this.state.defenseur.id,
                         this.state.gardien.id)
                         .then(() => {
-                          this.setState({message: "Joueurs mis à jour!", isUpdating: false});
+                          this.setState({ message: "Joueurs mis à jour!", isUpdating: false });
                         });
-                      }}>Sauvegarder</Button>
+                    }}>Sauvegarder</Button>
                   </Col>
                   <Col lg="1"></Col>
                   <Col lg="3">
@@ -123,11 +124,11 @@ class CreationEquipe extends Component {
                 </Row>
                 <Row>
                   <Col lg="12">
-                  {this.state.isUpdating 
-                  ? "En train d'effectuer les modifications ... " 
-                  : this.state.message}
+                    {this.state.isUpdating
+                      ? "En train d'effectuer les modifications ... "
+                      : this.state.message}
                   </Col>
-                  </Row>
+                </Row>
               </CardBody>
             </Card>
           </Col>
@@ -150,7 +151,7 @@ class CreationEquipe extends Component {
                   </Col>
                   <Col lg="2">
                     <Button onClick={() => {
-                      this.setState({ attaquant: {}});
+                      this.setState({ attaquant: {} });
                     }}>Effacer</Button>
                   </Col>
                 </Row>
@@ -186,28 +187,28 @@ class CreationEquipe extends Component {
                   </Col>
                   <Col lg="2">
                     <Button onClick={() => {
-                      this.setState({ defenseur: {}});
+                      this.setState({ defenseur: {} });
                     }}>Effacer</Button>
                   </Col>
                 </Row>
                 <Row>
-                <Col lg="3">
-                  Gardien :
+                  <Col lg="3">
+                    Gardien :
                 </Col>
-                <Col lg="5">
-                  {this.state.gardien.nom ? this.state.gardien.nom : NO_PLAYER}
-                </Col>
-                <Col lg="2">
-                  <Button onClick={() => {
-                    this.setState({ gardien: this.state.selectedPlayer });
-                  }}>Choisir</Button>
-                </Col>
-                <Col lg="2">
-                  <Button onClick={() => {
-                    this.setState({ gardien: {}});
-                  }}>Effacer</Button>
-                </Col>
-              </Row>
+                  <Col lg="5">
+                    {this.state.gardien.nom ? this.state.gardien.nom : NO_PLAYER}
+                  </Col>
+                  <Col lg="2">
+                    <Button onClick={() => {
+                      this.setState({ gardien: this.state.selectedPlayer });
+                    }}>Choisir</Button>
+                  </Col>
+                  <Col lg="2">
+                    <Button onClick={() => {
+                      this.setState({ gardien: {} });
+                    }}>Effacer</Button>
+                  </Col>
+                </Row>
               </CardBody>
             </Card>
           </Col>
