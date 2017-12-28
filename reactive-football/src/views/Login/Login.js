@@ -1,48 +1,44 @@
-import React, {Component} from 'react';
-import {Modal,ModalHeader,ModalFooter,ModalBody,Container, Row, Col, CardGroup, Card, CardBody, Button, Input, InputGroup, InputGroupAddon} from 'reactstrap';
+import React, { Component } from 'react';
+import { Modal, ModalHeader, ModalFooter, ModalBody, Container, Row, Col, CardGroup, Card, CardBody, Button, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 import Signup from './Signup';
-import {getUser} from '../../functions/Joueur';
+import { getUser } from '../../functions/Joueur';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      signup : false,
-      login : "",
-      password : "",
+      signup: false,
+      login: "",
+      password: "",
+      user: "",
       connexion: false,
-      modal : false,
-      user : ""
+      modal: false
     };
-    this.toggle = this.toggle.bind(this);    
+    this.toggle = this.toggle.bind(this);
   }
 
   handleChange(e) {
     var change = {}
-    change[e.target.name] = e.target.value
+    change[e.target.name] = e.target.value;
     this.setState(change)
   }
 
-  Connexion(){
+  connexion() {
     getUser(this.state.login, this.state.password)
       .then((res) => {
-      this.setState({connexion : res.data})
-      this.setState({user  : res.data.uti_id});
-      this.handleLogin();
-      console.log(this.state.connexion);
-      if (!this.state.connexion) {
-        localStorage.setItem('connected',false);    
-        localStorage.setItem('userId','');
-        this.toggle();
-      }else{
-        localStorage.setItem('connected',true);    
-        localStorage.setItem('userId',this.state.user);
-      }
-    });
+        if (res.data) {
+          localStorage.setItem('user', JSON.stringify(res.data));
+          this.userLogedIn();
+        } else {
+          this.toggle();
+        }
+      });
   }
 
-  handleLogin(){
-    this.props.onLogin(this.state.connexion);
+  userLogedIn() {
+    if (this.props.onLogin) {
+      this.props.onLogin();
+    }
   }
 
   toggle() {
@@ -52,11 +48,11 @@ class Login extends Component {
   }
 
   render() {
-    if (this.state.signup){
-      return(
-        <Signup onSignup={signupState =>{this.props.onLogin(this.state.signup)}} />
+    if (this.state.signup) {
+      return (
+        <Signup onSignup={() => {this.userLogedIn()}}/>
       )
-    }else{
+    } else {
       return (
         <div className="app flex-row align-items-center">
           <Container>
@@ -69,15 +65,15 @@ class Login extends Component {
                       <p className="text-muted">Connecte-toi et crée/modifie ton équipe !</p>
                       <InputGroup className="mb-3">
                         <InputGroupAddon><i className="icon-user"></i></InputGroupAddon>
-                        <Input type="text" name="login" onChange={this.handleChange.bind(this)} placeholder="Nom d'utilisateur"/>
+                        <Input type="text" name="login" onChange={this.handleChange.bind(this)} placeholder="Nom d'utilisateur" />
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <InputGroupAddon><i className="icon-lock"></i></InputGroupAddon>
-                        <Input type="password" name="password"  onChange={this.handleChange.bind(this)} placeholder="Mot de passe"/>
+                        <Input type="password" name="password" onChange={this.handleChange.bind(this)} placeholder="Mot de passe" />
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button color="primary" className="px-4" onClick={()=>this.Connexion()}>Connexion</Button>
+                          <Button color="primary" className="px-4" onClick={() => this.connexion()}>Connexion</Button>
                           <Modal isOpen={this.state.modal} toggle={this.toggle}>
                             <ModalHeader toggle={this.toggle}>Erreur de connexion</ModalHeader>
                             <ModalBody>
@@ -99,7 +95,7 @@ class Login extends Component {
                       <div>
                         <h2>Inscription</h2>
                         <p>Tu n'as pas encore de compte et tu aimerais te créer une équipe et pouvoir la comparer avec tes amis ? Alors n'attends plus et inscris-toi !</p>
-                        <Button color="primary"  className="mt-3" active onClick={()=>this.setState({signup : true})}>Créer compte</Button>
+                        <Button color="primary" className="mt-3" active onClick={() => this.setState({ signup: true })}>Créer compte</Button>
                       </div>
                     </CardBody>
                   </Card>

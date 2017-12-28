@@ -1,19 +1,18 @@
-import React, {Component} from 'react';
-import {Container, Row, Col, Card, CardBody, CardFooter, Button, Input, InputGroup, InputGroupAddon,Modal,ModalBody,ModalFooter,ModalHeader} from 'reactstrap';
-import {insertUser} from '../../functions/Joueur';
+import React, { Component } from 'react';
+import { Container, Row, Col, Card, CardBody, CardFooter, Button, Input, InputGroup, InputGroupAddon, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import { getUser, insertUser } from '../../functions/Joueur';
 
 class Signup extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      allIsFine : true,
-      signup : false,
-      login : "",
-      email : "",
-      password : ""
+      allIsFine: true,
+      login: "",
+      email: "",
+      password: ""
     };
-    this.toggle = this.toggle.bind(this);        
+    this.toggle = this.toggle.bind(this);
   }
 
   handleChange(e) {
@@ -25,13 +24,22 @@ class Signup extends Component {
   insert() {
     insertUser(this.state.login, this.state.email, this.state.password)
       .then((res) => {
-        if (res){
-          this.setState({signup : true});
-          this.props.onSignup(this.state.signup);
-        }else{
-          this.setState({allIsFine : false});
+        if (res) {
+          getUser(this.state.login, this.state.password)
+            .then((res) => {
+              localStorage.setItem('user', JSON.stringify(res.data)); 
+              this.onSignUp();
+            });
+        } else {
+          this.setState({ allIsFine: false });
         }
-    });
+      });
+  }
+
+  onSignUp() {
+    if (this.props.onSignup) {
+      this.props.onSignup();
+    }
   }
 
   toggle() {
@@ -52,17 +60,17 @@ class Signup extends Component {
                   <p className="text-muted">Mes infos</p>
                   <InputGroup className="mb-3">
                     <InputGroupAddon><i className="icon-user"></i></InputGroupAddon>
-                    <Input type="text" name="login" onChange={this.handleChange.bind(this)} placeholder="Pseudo"/>
+                    <Input type="text" name="login" onChange={this.handleChange.bind(this)} placeholder="Pseudo" />
                   </InputGroup>
                   <InputGroup className="mb-3">
                     <InputGroupAddon>@</InputGroupAddon>
-                    <Input type="text" name="email" onChange={this.handleChange.bind(this)} placeholder="Email"/>
+                    <Input type="text" name="email" onChange={this.handleChange.bind(this)} placeholder="Email" />
                   </InputGroup>
                   <InputGroup className="mb-3">
                     <InputGroupAddon><i className="icon-lock"></i></InputGroupAddon>
-                    <Input type="password" name="password" onChange={this.handleChange.bind(this)} placeholder="Mot de passe"/>
+                    <Input type="password" name="password" onChange={this.handleChange.bind(this)} placeholder="Mot de passe" />
                   </InputGroup>
-                  <Button color="success" block onClick={()=>this.insert()}>Je créer mon compte !</Button>
+                  <Button color="success" block onClick={() => this.insert()}>Je crée mon compte !</Button>
                   <Modal isOpen={!this.state.allIsFine} toggle={this.toggle}>
                     <ModalHeader toggle={this.toggle}>Echec de création de compte</ModalHeader>
                     <ModalBody>

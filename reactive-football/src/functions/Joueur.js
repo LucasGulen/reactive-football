@@ -18,7 +18,7 @@ export const getJoueursFilter = (joueurs) => {
   });
 }
 
-export const getJoueursFavoris = (joueur = 1) => {
+export const getJoueursFavoris = (joueur) => {
   return new Promise((resolve, reject) => {
     axios.get(`http://localhost/players.php?favoris=` + joueur)
     .then((res) => {
