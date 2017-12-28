@@ -3,6 +3,7 @@ const routes = {
   '/dashboard': 'Dashboard',
   '/position' : 'PositionJoueur',
   '/general' : 'General',
-  '/equipe' : 'CreationEquipe'
+  '/equipe' : 'CreationEquipe',
+  '/login' : 'Login'
 };
 export default routes;

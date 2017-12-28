@@ -12,6 +12,8 @@ import PositionJoueur from '../../views/PositionJoueur/';
 import General from '../../views/General/';
 import CreationEquipe from '../../views/CreationEquipe/';
 
+const login = false;
+
 class Full extends Component {
   render() {
     return (
@@ -25,7 +27,7 @@ class Full extends Component {
                 <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
                 <Route path="/position" name="Position" component={PositionJoueur}/>
                 <Route path="/general" name="General" component={General}/>
-                <Route path="/equipe" name="CreationEquipe" component={CreationEquipe}/>
+                <Route path="/equipe" name="CréationEquipe" component={CreationEquipe}/>
                 <Redirect from="/" to="/dashboard"/>
               </Switch>
             </Container>

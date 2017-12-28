@@ -26,6 +26,8 @@
 		get_favourite_players();
 	} else if (isset($_GET['nbUsers'])){
 		get_nbUsers();
+	}else if (isset($_GET['login'], $_GET['password'])) {
+		get_User();
 	}else if (isset($_GET['statistiques_all'])){
 		get_statistiques_all();
 	}else if (isset($_GET['statistiques_club'])){
@@ -36,6 +38,10 @@
 		insert_favourites();
 	} else {
 		get_all_players();
+	}
+	
+	function get_User () {
+		global $conn;
 	}
 	
 	function get_nbUsers(){

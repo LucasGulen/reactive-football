@@ -23,7 +23,7 @@ const doughnut = {
     ]
   }]
 };
-
+  
 class Donut extends Component {
 
   constructor(props) {
