@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalFooter, ModalBody, Container, Row, Col, CardGroup, Card, CardBody, Button, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 import Signup from './Signup';
+import Notifications, {notify} from 'react-notify-toast';
+
 import { getUser } from '../../functions/Joueur';
 
 class Login extends Component {
@@ -15,6 +17,7 @@ class Login extends Component {
       modal: false
     };
     this.toggle = this.toggle.bind(this);
+    this.connexion = this.connexion.bind(this);
   }
 
   handleChange(e) {
@@ -28,7 +31,9 @@ class Login extends Component {
       .then((res) => {
         if (res.data) {
           localStorage.setItem('user', JSON.stringify(res.data));
+          notify.show('Toasty!');
           this.userLogedIn();
+          
         } else {
           this.toggle();
         }
@@ -38,6 +43,12 @@ class Login extends Component {
   userLogedIn() {
     if (this.props.onLogin) {
       this.props.onLogin();
+    }
+  }
+
+  handleKeyPress(event) {
+    if(event.key == 'Enter'){
+      this.connexion();
     }
   }
 
@@ -65,11 +76,11 @@ class Login extends Component {
                       <p className="text-muted">Connecte-toi et crée/modifie ton équipe !</p>
                       <InputGroup className="mb-3">
                         <InputGroupAddon><i className="icon-user"></i></InputGroupAddon>
-                        <Input type="text" name="login" onChange={this.handleChange.bind(this)} placeholder="Nom d'utilisateur" />
+                        <Input type="text" name="login" onChange={this.handleChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} placeholder="Nom d'utilisateur" />
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <InputGroupAddon><i className="icon-lock"></i></InputGroupAddon>
-                        <Input type="password" name="password" onChange={this.handleChange.bind(this)} placeholder="Mot de passe" />
+                        <Input type="password" name="password" onChange={this.handleChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} placeholder="Mot de passe" />
                       </InputGroup>
                       <Row>
                         <Col xs="6">

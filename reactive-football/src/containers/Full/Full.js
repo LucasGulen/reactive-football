@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
-import {Link, Switch, Route, Redirect} from 'react-router-dom';
-import {Container} from 'reactstrap';
+import React, { Component } from 'react';
+import { Link, Switch, Route, Redirect } from 'react-router-dom';
+import { Container } from 'reactstrap';
+import Notifications, {notify} from 'react-notify-toast';
 import Header from '../../components/Header/';
 import Sidebar from '../../components/Sidebar/';
 import Breadcrumb from '../../components/Breadcrumb/';
@@ -18,18 +19,19 @@ class Full extends Component {
   render() {
     return (
       <div className="app">
+      <Notifications />
         <Header />
         <div className="app-body">
-          <Sidebar {...this.props}/>
+          <Sidebar {...this.props} />
           <main className="main">
-          <Container fluid>
-              <Switch>
-                <Route path="/accueil" name="Accueil" component={Accueil}/>
-                <Route path="/position" name="Position" component={PositionJoueur}/>
-                <Route path="/general" name="General" component={General}/>
-                <Route path="/equipe" name="CreationEquipe" component={CreationEquipe}/>
-                <Redirect from="/" to="/accueil"/>
-              </Switch>
+            <Container fluid>
+                <Switch>
+                  <Route path="/accueil" name="Accueil" component={Accueil} />
+                  <Route path="/position" name="Position" component={PositionJoueur} />
+                  <Route path="/general" name="General" component={General} />
+                  <Route path="/equipe" name="CreationEquipe" component={CreationEquipe} />
+                  <Redirect from="/" to="/accueil" />
+                </Switch>
             </Container>
           </main>
           <Aside />

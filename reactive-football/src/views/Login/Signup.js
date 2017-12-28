@@ -21,6 +21,12 @@ class Signup extends Component {
     this.setState(change)
   }
 
+  handleKeyPress(event) {
+    if(event.key == 'Enter'){
+      this.insert();
+    }
+  }
+
   insert() {
     insertUser(this.state.login, this.state.email, this.state.password)
       .then((res) => {
@@ -60,15 +66,15 @@ class Signup extends Component {
                   <p className="text-muted">Mes infos</p>
                   <InputGroup className="mb-3">
                     <InputGroupAddon><i className="icon-user"></i></InputGroupAddon>
-                    <Input type="text" name="login" onChange={this.handleChange.bind(this)} placeholder="Pseudo" />
+                    <Input type="text" name="login" onChange={this.handleChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} placeholder="Pseudo" />
                   </InputGroup>
                   <InputGroup className="mb-3">
                     <InputGroupAddon>@</InputGroupAddon>
-                    <Input type="text" name="email" onChange={this.handleChange.bind(this)} placeholder="Email" />
+                    <Input type="text" name="email" onChange={this.handleChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} placeholder="Email" />
                   </InputGroup>
                   <InputGroup className="mb-3">
                     <InputGroupAddon><i className="icon-lock"></i></InputGroupAddon>
-                    <Input type="password" name="password" onChange={this.handleChange.bind(this)} placeholder="Mot de passe" />
+                    <Input type="password" name="password" onChange={this.handleChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} placeholder="Mot de passe" />
                   </InputGroup>
                   <Button color="success" block onClick={() => this.insert()}>Je crée mon compte !</Button>
                   <Modal isOpen={!this.state.allIsFine} toggle={this.toggle}>
