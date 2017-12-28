@@ -26,7 +26,7 @@
 		get_favourite_players();
 	} else if (isset($_GET['nbUsers'])){
 		get_nbUsers();
-	}else if (isset($_GET['login'], $_GET['password'])) {
+	}else if (isset($_POST['login'], $_POST['password'])) {
 		get_User();
 	}else if (isset($_GET['statistiques_all'])){
 		get_statistiques_all();
@@ -42,6 +42,14 @@
 	
 	function get_User () {
 		global $conn;
+		$sql = "SELECT * FROM utilisateur WHERE uti_pseudo = '$_POST[login]' AND uti_password = '$_POST[password]'";
+		$result = $conn->query($sql);
+		$row = $result->fetch_assoc();
+		if ($row != null){
+			echo json_encode(true);
+		}else {
+			echo json_encode(false);
+		}
 	}
 	
 	function get_nbUsers(){
