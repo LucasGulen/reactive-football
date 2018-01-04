@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalFooter, ModalBody, Container, Row, Col, CardGroup, Card, CardBody, Button, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 import Signup from './Signup';
-import Notifications, {notify} from 'react-notify-toast';
 
 import { getUser } from '../../functions/Joueur';
 
@@ -31,7 +30,6 @@ class Login extends Component {
       .then((res) => {
         if (res.data) {
           localStorage.setItem('user', JSON.stringify(res.data));
-          notify.show('Toasty!');
           this.userLogedIn();
           
         } else {

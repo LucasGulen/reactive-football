@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Col, Container, Row, Card, CardHeader, CardBody, Table } from 'reactstrap';
 import axios from 'axios';
-import {NotificationContainer} from 'react-notifications';
 
 import TableJoueurs from './../../components/Tables/TableJoueurs'
 import { getJoueursFilter, getJoueursFavoris, updateJoueursFavoris } from './../../functions/Joueur';
@@ -68,7 +67,6 @@ class CreationEquipe extends Component {
   showCreationEquipe() {
     return (
       <Container>
-        <NotificationContainer/>
         <Row>
           <Col lg="6" xs="12">
             <Card>

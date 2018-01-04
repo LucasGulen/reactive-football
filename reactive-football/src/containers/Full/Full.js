@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Switch, Route, Redirect } from 'react-router-dom';
 import { Container } from 'reactstrap';
-import Notifications, {notify} from 'react-notify-toast';
 import Header from '../../components/Header/';
 import Sidebar from '../../components/Sidebar/';
 import Breadcrumb from '../../components/Breadcrumb/';
@@ -19,7 +18,6 @@ class Full extends Component {
   render() {
     return (
       <div className="app">
-      <Notifications />
         <Header />
         <div className="app-body">
           <Sidebar {...this.props} />
