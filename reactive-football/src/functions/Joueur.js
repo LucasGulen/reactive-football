@@ -22,7 +22,6 @@ export const getJoueursFavoris = (joueur) => {
   return new Promise((resolve, reject) => {
     axios.get(`http://localhost/players.php?favoris=` + joueur)
     .then((res) => {
-      console.log(res);
       resolve(res);
     });
   });
