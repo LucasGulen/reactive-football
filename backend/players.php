@@ -48,14 +48,11 @@
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 		if ($login != "" && $password!="" && $email!=""){
+			$sql = "INSERT INTO favoris(fav_attaquant, fav_milieu, fav_defenseur, fav_gardien) VALUES (0, 0, 0, 0)";
+			$conn->query($sql);
 			$sql = "INSERT INTO utilisateur(uti_pseudo, uti_email, uti_password) VALUES ('$login','$email','$password')";
 			if ($conn->query($sql) === TRUE) {
-				$sql = "INSERT INTO favoris(fav_attaquant, fav_milieu, fav_defenseur, fav_gardien) VALUES (0, 0, 0, 0)";
-				if ($conn->query($sql) === TRUE) {
-					echo json_encode(true);
-				} else {
-					echo json_encode(false);
-				}
+				echo json_encode(true);
 			} else {
 				echo json_encode(false);
 			}
